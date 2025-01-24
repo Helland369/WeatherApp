@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "AkOb7WmbdSs=",
+  "dgSpecHash": "pp8BRjIPY5s=",
   "success": true,
-  "projectFilePath": "/home/th/code/csharp/WeatherApp/WeatherApp.csproj",
+  "projectFilePath": "/home/th/github/WeatherApp/WeatherApp.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }
