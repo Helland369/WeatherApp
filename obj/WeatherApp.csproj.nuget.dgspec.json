@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/home/th/code/csharp/WeatherApp/WeatherApp.csproj": {}
+    "/home/th/github/WeatherApp/WeatherApp.csproj": {}
   },
   "projects": {
-    "/home/th/code/csharp/WeatherApp/WeatherApp.csproj": {
+    "/home/th/github/WeatherApp/WeatherApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/th/code/csharp/WeatherApp/WeatherApp.csproj",
+        "projectUniqueName": "/home/th/github/WeatherApp/WeatherApp.csproj",
         "projectName": "WeatherApp",
-        "projectPath": "/home/th/code/csharp/WeatherApp/WeatherApp.csproj",
+        "projectPath": "/home/th/github/WeatherApp/WeatherApp.csproj",
         "packagesPath": "/home/th/.nuget/packages/",
-        "outputPath": "/home/th/code/csharp/WeatherApp/obj/",
+        "outputPath": "/home/th/github/WeatherApp/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/th/.nuget/NuGet/NuGet.Config"
