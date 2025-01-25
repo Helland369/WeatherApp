@@ -5,24 +5,35 @@ namespace WeatherApp;
 
 class ShowWeatherInfo
 {
-    static ApiHelper api = new ApiHelper();
-
-    private static readonly string _positonData = api.GetPositionData();
-    private static readonly string _weatherData = api.GettWeatherData();
-
-    LocationData ld = JsonSerializer.Deserialize<LocationData>(_positonData);
-    WeatherData wd = JsonSerializer.Deserialize<WeatherData>(_weatherData);
+    private ApiHelper api = new ApiHelper();
 
     public ShowWeatherInfo()
     {
-        WeatherMenu();
+        WeatherMenu().GetAwaiter().GetResult();
     }
 
-    private void WeatherMenu() {
-        Console.WriteLine($"Temp: {wd.main.temp}");
-        Console.WriteLine($"Humidity: {wd.main.humidity}");
-        Console.WriteLine($"Pressure: {wd.main.pressure}");
-        Console.WriteLine($"City {ld.ip}");
-        Console.WriteLine($"Country {ld.country}");
+    private async Task WeatherMenu()
+    {
+        try
+        {
+            string positionData = await api.GetPositionDataAsync();
+            string weaterData = await api.GettWeatherDataAsync();
+
+            var location = JsonSerializer.Deserialize<LocationData>(positionData);
+            var weather = JsonSerializer.Deserialize<WeatherData>(weaterData);
+
+            if (location != null && weather != null)
+            {
+                Console.WriteLine($"Temp: {weather.main.temp}C");
+                Console.WriteLine($"Humidity: {weather.main.humidity}%");
+                Console.WriteLine($"Presure: {weather.main.pressure} hpa");
+                Console.WriteLine($"City: {location.city}");
+                Console.WriteLine($"Country: {location.country}");
+            }
+        }
+        catch (Exception exeption)
+        {
+            Console.WriteLine($"An error occurred: {exeption.Message}");
+        }
     }
 }
