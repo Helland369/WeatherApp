@@ -2,8 +2,6 @@ using System.Text.Json.Serialization;
 
 namespace WeatherApp;
 
-// Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse);
-
 public class WeatherData
 {
     public Coord coord { get; set; }
