@@ -1,3 +1,5 @@
+using System.Net.Http;
+
 namespace WeatherApp;
 
 public class ApiHelper
@@ -10,35 +12,37 @@ public class ApiHelper
         _httpClient = new HttpClient();
     }
 
-    public string GettWeatherData()
+    public async Task<string> GettWeatherDataAsync()
     {
-        string weatherApiUrl = "https://api.openweathermap.org/data/2.5/weather?q=Fredrikstad&appid=//APIKEY&units=metric";
-        HttpResponseMessage response = _httpClient.GetAsync(weatherApiUrl).GetAwaiter().GetResult();
+        try
+        {
+            string weatherApiUrl = "https://api.openweathermap.org/data/2.5/weather?q=//CITY&appid=//APIKEI&units=metric";
+            var response = await _httpClient.GetAsync(weatherApiUrl);
 
-        if (response.IsSuccessStatusCode)
-        {
-            return _httpClient.GetStringAsync(weatherApiUrl).GetAwaiter().GetResult();
+            response.EnsureSuccessStatusCode();
+            return await response.Content.ReadAsStringAsync();
         }
-        else
+        catch (Exception exeption)
         {
-            throw new Exception($"Getting weather data failed: {response.ReasonPhrase}");
+            throw new Exception($"Error while fetching weather data: {exeption.Message}");
         }
     }
 
-    public string GetPositionData() 
+    public async Task<string> GetPositionDataAsync() 
     {
         if (_cachedPositionData == null)
         {
-            string positonApiUrl = "https://ipapi.co/json/";
-            HttpResponseMessage response = _httpClient.GetAsync(positonApiUrl).GetAwaiter().GetResult();
+            try
+            {
+                string positonApiUrl = "https://ipapi.co/json/";
+                var response = await _httpClient.GetAsync(positonApiUrl);
 
-            if (response.IsSuccessStatusCode)
-            {
-                _cachedPositionData = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+                response.EnsureSuccessStatusCode();
+                _cachedPositionData = await response.Content.ReadAsStringAsync();
             }
-            else
+            catch (Exception exeption)
             {
-                throw new Exception($"Error when fetching data: {response.ReasonPhrase}");
+                throw new Exception($"Error while fetching position data: {exeption.Message}");
             }
             
         }
