@@ -2,8 +2,9 @@ namespace WeatherApp;
 
 public class ApiHelper
 {
-    private HttpClient _httpClient;
-
+    private readonly HttpClient _httpClient;
+    private string _cachedPositionData;
+    
     public ApiHelper()
     {
         _httpClient = new HttpClient();
@@ -11,13 +12,36 @@ public class ApiHelper
 
     public string GettWeatherData()
     {
-        string weatherApiUrl = "https://api.openweathermap.org/data/2.5/weather?q=Fredrikstad&appid=//APIKEY&units=metri";
-        return _httpClient.GetStringAsync(weatherApiUrl).GetAwaiter().GetResult();
+        string weatherApiUrl = "https://api.openweathermap.org/data/2.5/weather?q=Fredrikstad&appid=//APIKEY&units=metric";
+        HttpResponseMessage response = _httpClient.GetAsync(weatherApiUrl).GetAwaiter().GetResult();
+
+        if (response.IsSuccessStatusCode)
+        {
+            return _httpClient.GetStringAsync(weatherApiUrl).GetAwaiter().GetResult();
+        }
+        else
+        {
+            throw new Exception($"Getting weather data failed: {response.ReasonPhrase}");
+        }
     }
 
-    public string GetPositionData()
+    public string GetPositionData() 
     {
-        string postionApiUrl = "https://ipapi.co/json";
-        return _httpClient.GetStringAsync(postionApiUrl).GetAwaiter().GetResult();
+        if (_cachedPositionData == null)
+        {
+            string positonApiUrl = "https://ipapi.co/json/";
+            HttpResponseMessage response = _httpClient.GetAsync(positonApiUrl).GetAwaiter().GetResult();
+
+            if (response.IsSuccessStatusCode)
+            {
+                _cachedPositionData = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+            }
+            else
+            {
+                throw new Exception($"Error when fetching data: {response.ReasonPhrase}");
+            }
+            
+        }
+        return _cachedPositionData;       
     }
 }
