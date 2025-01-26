@@ -1,11 +1,13 @@
 using System.Net.Http;
+using IPinfo;
+using IPinfo.Models;
 
 namespace WeatherApp;
 
 public class ApiHelper
 {
     private readonly HttpClient _httpClient;
-    private string _cachedPositionData;
+    private double lon, lat;
     
     public ApiHelper()
     {
@@ -14,9 +16,11 @@ public class ApiHelper
 
     public async Task<string> GettWeatherDataAsync()
     {
+        await GetLoacationData();
+
         try
         {
-            string weatherApiUrl = "https://api.openweathermap.org/data/2.5/weather?q=//CITY&appid=//APIKEI&units=metric";
+            string weatherApiUrl = $"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid=//APIKEY&units=metric";
             var response = await _httpClient.GetAsync(weatherApiUrl);
 
             response.EnsureSuccessStatusCode();
@@ -28,24 +32,38 @@ public class ApiHelper
         }
     }
 
-    public async Task<string> GetPositionDataAsync() 
+    public async Task GetLoacationData()
     {
-        if (_cachedPositionData == null)
+        // api token
+        string? token = "//APIKEY";
+
+        // request time out
+        TimeSpan timeOut = TimeSpan.FromSeconds(5);
+
+        if (!token.Equals(null))
         {
+            // initialize ipinfo client
+            IPinfoClient clinet = new IPinfoClient.Builder()
+                .AccessToken(token)
+                .HttpClientConfig(config => config
+                                  .Timeout(timeOut)
+                                  .HttpClientInstance(_httpClient))
+                                  .Build();
+
             try
             {
-                string positonApiUrl = "https://ipapi.co/json/";
-                var response = await _httpClient.GetAsync(positonApiUrl);
-
-                response.EnsureSuccessStatusCode();
-                _cachedPositionData = await response.Content.ReadAsStringAsync();
+                IPResponse response = await clinet.IPApi.GetDetailsAsync();
+                lon = Convert.ToDouble(response.Longitude);
+                lat = Convert.ToDouble(response.Latitude);
             }
-            catch (Exception exeption)
+            catch (Exception ex)
             {
-                throw new Exception($"Error while fetching position data: {exeption.Message}");
+                Console.WriteLine($"An error occurred: {ex.Message}");
             }
-            
         }
-        return _cachedPositionData;       
+        else
+        {
+            Console.WriteLine("Set your access token as IPINFO_TOKEN in environment variables in order to run this sample code. You can also set your token string in the code manually.");
+        }
     }
 }
