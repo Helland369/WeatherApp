@@ -1,0 +1,51 @@
+diff a/ApiHelper.cs b/ApiHelper.cs	(rejected hunks)
+@@ -28,24 +28,38 @@ public class ApiHelper
+         }
+     }
+ 
+-    public async Task<string> GetPositionDataAsync() 
++    public async Task GetLoacationData()
+     {
+-        if (_cachedPositionData == null)
++        // api token
++        string? token = "//APIkey";
++
++        // request time out
++        TimeSpan timeOut = TimeSpan.FromSeconds(5);
++
++        if (!token.Equals(null))
+         {
++            // initialize ipinfo client
++            IPinfoClient clinet = new IPinfoClient.Builder()
++                .AccessToken(token)
++                .HttpClientConfig(config => config
++                                  .Timeout(timeOut)
++                                  .HttpClientInstance(_httpClient))
++                                  .Build();
++
+             try
+             {
+-                string positonApiUrl = "https://ipapi.co/json/";
+-                var response = await _httpClient.GetAsync(positonApiUrl);
+-
+-                response.EnsureSuccessStatusCode();
+-                _cachedPositionData = await response.Content.ReadAsStringAsync();
++                IPResponse response = await clinet.IPApi.GetDetailsAsync();
++                lon = Convert.ToDouble(response.Longitude);
++                lat = Convert.ToDouble(response.Latitude);
+             }
+-            catch (Exception exeption)
++            catch (Exception ex)
+             {
+-                throw new Exception($"Error while fetching position data: {exeption.Message}");
++                Console.WriteLine($"An error occurred: {ex.Message}");
+             }
+-            
+         }
+-        return _cachedPositionData;       
++        else
++        {
++            Console.WriteLine("Set your access token as IPINFO_TOKEN in environment variables in order to run this sample code. You can also set your token string in the code manually.");
++        }
+     }
+ }
