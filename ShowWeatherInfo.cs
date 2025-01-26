@@ -16,20 +16,22 @@ class ShowWeatherInfo
     {
         try
         {
-            //string positionData = await api.GetPositionDataAsync();
             string weaterData = await api.GettWeatherDataAsync();
 
-            //var location = JsonSerializer.Deserialize<LocationData>(positionData);
             var weather = JsonSerializer.Deserialize<WeatherData>(weaterData);
 
-            // if (location != null && weather != null)
-            // {
-            //     Console.WriteLine($"Temp: {weather.main.temp}C");
-            //     Console.WriteLine($"Humidity: {weather.main.humidity}%");
-            //     Console.WriteLine($"Presure: {weather.main.pressure} hpa");
-            //     Console.WriteLine($"City: {location.city}");
-            //     Console.WriteLine($"Country: {location.country}");
-            // }
+            Console.Clear();
+            Console.WriteLine($"Place: {weather.name}");
+            Console.WriteLine($"Timezone: {weather.timezone}");
+            Console.WriteLine($"Latitude: {weather.coord.lat}");
+            Console.WriteLine($"Longditude: {weather.coord.lon}");
+            Console.WriteLine($"Temp: {weather.main.temp}C");
+            Console.WriteLine($"Feels like: {weather.main.feels_like}C");
+            Console.WriteLine($"Max temp: {weather.main.temp_min}C");
+            Console.WriteLine($"Min temp: {weather.main.temp_min}C");
+            Console.WriteLine($"Pressure: {weather.main.pressure}");
+            Console.WriteLine($"Humidity: {weather.main.humidity}");
+            Console.WriteLine($"Sea level: {weather.main.sea_level}");
         }
         catch (Exception exeption)
         {
