@@ -6,33 +6,40 @@ namespace WeatherApp;
 
 public class ApiHelper
 {
+    // referance Httpclient
     private readonly HttpClient _httpClient;
+    // longitude and latitude for weather api
     private double lon, lat;
     
     public ApiHelper()
     {
+        // make Httpclient
         _httpClient = new HttpClient();
     }
 
     public async Task<string> GettWeatherDataAsync()
     {
         await GetLoacationData();
-
+        
         try
         {
+            // weather api
             string weatherApiUrl = $"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid=//APIKEY&units=metric";
+            // weather response
             var response = await _httpClient.GetAsync(weatherApiUrl);
-
+            // Ensure successfull response
             response.EnsureSuccessStatusCode();
+            // return response
             return await response.Content.ReadAsStringAsync();
         }
         catch (Exception exeption)
         {
+            // if error
             throw new Exception($"Error while fetching weather data: {exeption.Message}");
         }
     }
 
-    public async Task GetLoacationData()
+    private async Task GetLoacationData()
     {
         // api token
         string? token = "//APIKEY";
@@ -52,17 +59,21 @@ public class ApiHelper
 
             try
             {
+                // get response
                 IPResponse response = await clinet.IPApi.GetDetailsAsync();
+                // set longitude and latitude
                 lon = Convert.ToDouble(response.Longitude);
                 lat = Convert.ToDouble(response.Latitude);
             }
             catch (Exception ex)
             {
+                // if error
                 Console.WriteLine($"An error occurred: {ex.Message}");
             }
         }
         else
         {
+            // if no response
             Console.WriteLine("Set your access token as IPINFO_TOKEN in environment variables in order to run this sample code. You can also set your token string in the code manually.");
         }
     }
