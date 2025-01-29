@@ -8,5 +8,6 @@ class Program
     {
         ShowWeatherInfo swi = new ShowWeatherInfo();
 
+        MsSqlDB sql = new MsSqlDB();
     }
 }

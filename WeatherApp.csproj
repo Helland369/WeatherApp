@@ -9,6 +9,7 @@
 
     <ItemGroup>
       <PackageReference Include="IPinfo" Version="3.0.1" />
+      <PackageReference Include="Microsoft.Data.SqlClient" Version="6.0.1" />
     </ItemGroup>
 
 </Project>

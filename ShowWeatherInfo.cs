@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 namespace WeatherApp;
 
 
-class ShowWeatherInfo
+public class ShowWeatherInfo
 {
     private ApiHelper api = new ApiHelper();
 
