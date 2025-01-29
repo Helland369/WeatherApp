@@ -24,7 +24,7 @@ public class ApiHelper
         try
         {
             // weather api
-            string weatherApiUrl = $"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid=//APIKEY&units=metric";
+            string weatherApiUrl = $"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}//APIKEY&appid=&units=metric";
             // weather response
             var response = await _httpClient.GetAsync(weatherApiUrl);
             // Ensure successfull response
