@@ -9,7 +9,7 @@ public class ApiHelper
     // referance Httpclient
     private readonly HttpClient _httpClient;
     // longitude and latitude for weather api
-    private double lon, lat;
+    private double _lon, _lat;
     
     public ApiHelper()
     {
@@ -24,7 +24,7 @@ public class ApiHelper
         try
         {
             // weather api
-            string weatherApiUrl = $"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}//APIKEY&appid=&units=metric";
+            string weatherApiUrl = $"https://api.openweathermap.org/data/2.5/weather?lat={_lat}&lon={_lon}&appid=//APIKEY&units=metric";
             // weather response
             var response = await _httpClient.GetAsync(weatherApiUrl);
             // Ensure successfull response
@@ -62,8 +62,8 @@ public class ApiHelper
                 // get response
                 IPResponse response = await clinet.IPApi.GetDetailsAsync();
                 // set longitude and latitude
-                lon = Convert.ToDouble(response.Longitude);
-                lat = Convert.ToDouble(response.Latitude);
+                _lon = Convert.ToDouble(response.Longitude);
+                _lat = Convert.ToDouble(response.Latitude);
             }
             catch (Exception ex)
             {

@@ -12,6 +12,12 @@ public class ShowWeatherInfo
         WeatherMenu().GetAwaiter().GetResult();
     }
 
+    public async Task<WeatherData> FetchWeatherData()
+    {
+        string weaterData = await api.GettWeatherDataAsync();
+        return JsonSerializer.Deserialize<WeatherData>(weaterData);
+    }
+
     private async Task WeatherMenu()
     {
         try
@@ -37,5 +43,6 @@ public class ShowWeatherInfo
         {
             Console.WriteLine($"An error occurred: {exeption.Message}");
         }
+
     }
 }
