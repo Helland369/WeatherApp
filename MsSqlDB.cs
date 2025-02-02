@@ -20,13 +20,14 @@ public class MsSqlDB
         string weaterData = await api.GettWeatherDataAsync();
         WeatherData wd = JsonSerializer.Deserialize<WeatherData>(weaterData);
 
-        string query = "INSERT INTO WeatherData (longitude, latitude, temp, feels_like, min_temp, max_temp, pressure, humidity, sea_level, grnd_level) VALUES (@longitude, @latitude, @temp, @feels_like, @min_temp, @max_temp, @pressure, @humidity, @sea_level, @grnd_level)";
+        string query = "INSERT INTO WeatherData (name, longitude, latitude, temp, feels_like, min_temp, max_temp, pressure, humidity, sea_level, grnd_level) VALUES (@name, @longitude, @latitude, @temp, @feels_like, @min_temp, @max_temp, @pressure, @humidity, @sea_level, @grnd_level)";
 
         using (SqlConnection connection = new SqlConnection(connectionString))
         {
             SqlCommand command = new SqlCommand(query, connection);
 
             // add parameters to avoid sql injection.
+            command.Parameters.AddWithValue("@name", wd.name);
             command.Parameters.AddWithValue("@longitude", wd.coord.lon);
             command.Parameters.AddWithValue("@latitude", wd.coord.lat);
             command.Parameters.AddWithValue("@temp", wd.main.temp);
@@ -41,6 +42,43 @@ public class MsSqlDB
             connection.Open();
             int rowsAffected = command.ExecuteNonQuery();
             Console.WriteLine($"{rowsAffected} rows inserted.");
+        }
+    }
+
+    public async Task ReadWeatherDataFromDB(string name)
+    {
+
+        using (SqlConnection connection = new SqlConnection(connectionString))
+        {
+            try
+            {
+                await connection.OpenAsync();
+                
+                string searchQuery = "SELECT * FROM WeatherData WHERE name = @name";
+
+                using (SqlCommand command = new SqlCommand(searchQuery, connection))
+                {
+                    command.Parameters.AddWithValue("@name", name);
+                    
+                    using (SqlDataReader reader = await command.ExecuteReaderAsync())
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            for (int i = 0; i < reader.FieldCount; i++)
+                            {
+                                string columnName = reader.GetName(i);
+                                object columnValue = reader.IsDBNull(i) ? "NULL" : reader.GetValue(i); // Read value if not null
+                                Console.WriteLine($"{columnName} {columnValue}");
+                            }
+                            Console.WriteLine(new string('-', 40)); // Sepperator for readablility
+                        }
+                    }
+                }
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine($"Error: {exception}");
+            }
         }
     }
 }
