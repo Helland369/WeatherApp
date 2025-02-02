@@ -7,7 +7,9 @@ class Program
     static async Task Main(string[] args)
     {
         ShowWeatherInfo swi = new ShowWeatherInfo();
-        MsSqlDB sql = new MsSqlDB();
-        await sql.WriteDataToDB();
+        // await swi.WeatherMenu();
+        // MsSqlDB sql = new MsSqlDB();
+        // await sql.WriteDataToDB();
+        // await sql.ReadWeatherDataFromDB("Oslo");
     }
 }

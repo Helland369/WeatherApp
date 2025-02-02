@@ -6,9 +6,11 @@ namespace WeatherApp;
 public class ShowWeatherInfo
 {
     private ApiHelper api = new ApiHelper();
+    private MsSqlDB sql = new MsSqlDB();
 
     public ShowWeatherInfo()
     {
+        // WeatherMenu().GetAwaiter().GetResult();
         WeatherMenu().GetAwaiter().GetResult();
     }
 
@@ -18,7 +20,7 @@ public class ShowWeatherInfo
         return JsonSerializer.Deserialize<WeatherData>(weaterData);
     }
 
-    private async Task WeatherMenu()
+    private async Task DisplayWeatherInfo()
     {
         try
         {
@@ -43,6 +45,35 @@ public class ShowWeatherInfo
         {
             Console.WriteLine($"An error occurred: {exeption.Message}");
         }
+    }
 
+    public async Task WeatherMenu()
+    {
+        short choice = -1;
+        Console.Clear();
+        while (true)
+        {
+            Console.WriteLine("[1] Show current Weather" +
+                              "[2] Search in the data base" +
+                              "[0] EXIT");
+            choice = Convert.ToInt16(Console.ReadLine());
+
+            switch (choice)
+            {
+                case 0:
+                    return;
+                case 1:
+                    await DisplayWeatherInfo();
+                    break;
+                case 2:
+                    Console.WriteLine("Write the mane of a city you want to search for");
+                    string city = Console.ReadLine();
+                    city = char.ToUpper(city[0]) + city.Substring(1).ToLower();
+                    await sql.ReadWeatherDataFromDB(city);
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }
