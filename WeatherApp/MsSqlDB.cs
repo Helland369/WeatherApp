@@ -1,19 +1,19 @@
-using Microsoft.Data.SqlClient;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using Microsoft.Data.SqlClient;
 
 namespace WeatherApp;
 
 public class MsSqlDB
 {
-    private string connectionString = "Server=localhost,1433;Database=WeatherApp;User Id=sa;Password=//PASSWORD;Encrypt=False;";
+    private readonly string connectionString = "Server=localhost,1433;Database=WeatherApp;User Id=sa;Password=//PASSWORD;Encrypt=False;";
 
     ApiHelper api = new ApiHelper();
 
     public MsSqlDB()
     {
     }
-    
+
     public async Task WriteDataToDB()
     {
 
@@ -53,13 +53,13 @@ public class MsSqlDB
             try
             {
                 await connection.OpenAsync();
-                
+
                 string searchQuery = "SELECT * FROM WeatherData WHERE name = @name";
 
                 using (SqlCommand command = new SqlCommand(searchQuery, connection))
                 {
                     command.Parameters.AddWithValue("@name", name);
-                    
+
                     using (SqlDataReader reader = await command.ExecuteReaderAsync())
                     {
                         while (await reader.ReadAsync())

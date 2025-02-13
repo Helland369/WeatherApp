@@ -6,3 +6,5 @@ api/Properties
 api/appsettings.Development.json
 api/appsettings.json
 WeatherApp/.cache
+
+Frontend/node_modules

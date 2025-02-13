@@ -10,7 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOpenApi();
 builder.Services.AddCors();
 
-string connectionString = "Server=localhost,1433;Database=WeatherApp;User Id=sa;Password=//PASSWORD;Encrypt=False;";
+string connectionString = "Server=localhost,1433;Database=WeatherApp;User Id=sa;Password=ArchUser3000;Encrypt=False;";
 
 builder.Services.AddScoped<MsSql>(provider =>
 {
