@@ -10,7 +10,7 @@ public class ApiHelper
     private readonly HttpClient _httpClient;
     // longitude and latitude for weather api
     private double _lon, _lat;
-    
+
     public ApiHelper()
     {
         // make Httpclient
@@ -20,7 +20,7 @@ public class ApiHelper
     public async Task<string> GettWeatherDataAsync()
     {
         await GetLoacationData();
-        
+
         try
         {
             // weather api
