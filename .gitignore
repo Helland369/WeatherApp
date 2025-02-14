@@ -1,10 +1,22 @@
-WeatherApp/bin
-WeatherApp/obj
+WeatherConsloleApp/bin
+WeatherConsloleApp/obj
+WeatherConsloleApp/api/bin
+WeatherConsloleApp/api/obj
+WeatherConsloleApp/api/Properties
+WeatherConsloleApp/api/appsettings.Development.json
+WeatherConsloleApp/api/appsettings.json
 api/bin
 api/obj
 api/Properties
 api/appsettings.Development.json
 api/appsettings.json
-WeatherApp/.cache
+WeatherConsloleApp/.cache
 
 Frontend/node_modules
+
+Backend/bin
+Backend/obj
+Backend/Properties
+Backend/appsettings.Development.json
+Backend/appsettings.json
+Backend/Migrations

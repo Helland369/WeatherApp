@@ -25,36 +25,26 @@ export default {
 
 <template>
   <div>
-    <h2>API Data</h2>
-    <table v-if="weatherData.length">
+    <table v-if="weatherData.length" class="w-full border-collaps mt-2">
       <thead>
         <tr>
-          <th v-for="(value, key) in weatherData[0]" :key="key">{{ key }}</th>
+          <th
+            v-for="(value, key) in weatherData[0]"
+            :key="key"
+            class="border border-gray-300 bg-gray-900 text-left p-2"
+          >
+            {{ key }}
+          </th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="item in weatherData" :key="item.id">
-          <td v-for="(value, key) in item" :key="key">{{ value }}</td>
+          <td v-for="(value, key) in item" :key="key" class="border border-gray-300 p-2">
+            {{ value }}
+          </td>
         </tr>
       </tbody>
     </table>
     <p v-else>No data available.</p>
   </div>
 </template>
-
-<style>
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 10px;
-}
-th,
-td {
-  border: 1px solid #ddd;
-  padding: 8px;
-}
-th {
-  background-color: #f4f4f4;
-  text-align: left;
-}
-</style>
