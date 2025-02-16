@@ -17,6 +17,7 @@ public class WeatherController : ControllerBase
     {
         _context = context;
         _weatherServices = services;
+        Console.WriteLine("Weather controller loaded!");
     }
 
     [HttpGet]
@@ -37,6 +38,8 @@ public class WeatherController : ControllerBase
     [HttpGet("live")]
     public async Task<IActionResult> GetLiveWeather()
     {
+        Console.WriteLine("Atempting to fetch Weather!");
+
         try
         {
             var weatherData = await _weatherServices.GetWeatherDataAsync();
