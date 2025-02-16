@@ -1,6 +1,7 @@
 using System.Text.Json;
 using Backend.Data;
 using Backend.Models;
+using DotNetEnv;
 using IPinfo;
 using IPinfo.Models;
 
@@ -17,11 +18,12 @@ public class WeatherServices
     {
         _httpClient = httpClient ?? throw new ArgumentNullException(nameof(HttpClient));
         _context = context ?? throw new ArgumentNullException(nameof(context));
+        //Env.Load();
     }
 
     private async Task GetLocationData()
     {
-        string token = "//APIKEY";
+        string token = Environment.GetEnvironmentVariable("IPKEY");
 
         TimeSpan timeout = TimeSpan.FromSeconds(5);
 
@@ -57,7 +59,7 @@ public class WeatherServices
 
         try
         {
-            string weatherApiUrl = $"https://api.openweathermap.org/data/2.5/weather?lat={_lat}&lon={_lon}&appid=//APIKEY&units=metric";
+            string weatherApiUrl = $"https://api.openweathermap.org/data/2.5/weather?lat={_lat}&lon={_lon}&appid={Environment.GetEnvironmentVariable("WEATHERKEY")}&units=metric";
             var response = await _httpClient.GetAsync(weatherApiUrl);
             response.EnsureSuccessStatusCode();
 

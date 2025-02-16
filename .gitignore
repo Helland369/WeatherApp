@@ -20,3 +20,4 @@ Backend/Properties
 Backend/appsettings.Development.json
 Backend/appsettings.json
 Backend/Migrations
+Backend/.env
