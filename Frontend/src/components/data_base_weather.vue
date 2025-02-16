@@ -10,7 +10,7 @@ export default {
   methods: {
     async fetchApi() {
       try {
-        const response = await axios.get('http://localhost:5145/api')
+        const response = await axios.get('http://localhost:5285/api/weather/')
         this.weatherData = response.data
       } catch (err) {
         console.log('Failed to fetch data', err)
@@ -25,7 +25,7 @@ export default {
 
 <template>
   <div>
-    <table v-if="weatherData.length" class="w-full border-collaps mt-2">
+    <table v-if="this.weatherData.length" class="w-full border-collaps mt-2">
       <thead>
         <tr>
           <th
