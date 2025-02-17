@@ -1,12 +1,14 @@
 <script setup>
 import logo from '@/assets/img/weather_logo.png'
+
+import { RouterLink } from 'vue-router'
 </script>
 
 <template>
   <nav class="flex justify-start">
     <img class="h-10 w-auto" v-bind:src="logo" />
-    <a href="current_weather.vue">Current weather</a>
-    <a href="./data_base_weather.vue">Weather data base</a>
+    <RouterLink to="/">Current weather</RouterLink>
+    <RouterLink to="/data_base">Weather data base</RouterLink>
   </nav>
   <hr />
   <br />
