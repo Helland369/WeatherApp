@@ -4,7 +4,7 @@ import axios from 'axios'
 export default {
   data() {
     return {
-      weatherData: [],
+      weatherData: null,
     }
   },
   methods: {
@@ -26,16 +26,107 @@ export default {
 
 <template>
   <div v-if="weatherData">
-    <h2>Current weather for your location</h2>
+    <h2 class="flex justify-center items-center">Current weather for your location</h2>
 
-    <p><strong>Location:</strong> {{ weatherData.name }}</p>
-    <!-- <p><strong>Temperature:</strong> {{ weatherData.main.temp }}</p> -->
-    <!-- <p><strong>Minimum Temperature:</strong> {{ weatherData.main.temp_min }}</p> -->
-    <!-- <p><strong>Maximum Temperature:</strong> {{ weatherData.main.temp_max }}</p> -->
-    <!-- <p><strong>Feels like:</strong> {{ weatherData.main.feels_like }}</p> -->
-    <!-- <p><strong>Humidity:</strong> {{ weatherData.main.humidity }}</p> -->
-    <!-- <p><strong>Pressure:</strong> {{ weatherData.main.pressure }}</p> -->
-    <!-- <p><strong>Sea level:</strong> {{ weatherData.main.sea_level }}</p> -->
-    <!-- <p><strong>Ground level:</strong> {{ weatherData.main.grnd_level }}</p> -->
+    <div class="flex justify-center items-center">
+      <strong>Location:</strong> {{ weatherData.name }}
+      <svg
+        class="h-8 w-8 text-red-500"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <circle cx="12" cy="12" r="10" />
+        <circle cx="12" cy="12" r="6" />
+        <circle cx="12" cy="12" r="2" />
+      </svg>
+    </div>
+    <div class="flex justify-center items-center">
+      <strong>Temperature:</strong> {{ weatherData.main?.temp }}
+      <svg
+        class="h-5 w-5 text-white-500"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        stroke-width="2"
+        stroke="currentColor"
+        fill="none"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path stroke="none" d="M0 0h24v24H0z" />
+        <circle cx="6" cy="8" r="2" />
+        <path d="M20 9a3 3 0 0 0 -3 -3h-1a3 3 0 0 0 -3 3v6a3 3 0 0 0 3 3h1a3 3 0 0 0 3 -3" />
+      </svg>
+    </div>
+    <div class="flex justify-center items-center">
+      <strong>Minimum Temperature:</strong> {{ weatherData.main?.temp_min }}
+      <svg
+        class="h-5 w-5 text-white-500"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        stroke-width="2"
+        stroke="currentColor"
+        fill="none"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path stroke="none" d="M0 0h24v24H0z" />
+        <circle cx="6" cy="8" r="2" />
+        <path d="M20 9a3 3 0 0 0 -3 -3h-1a3 3 0 0 0 -3 3v6a3 3 0 0 0 3 3h1a3 3 0 0 0 3 -3" />
+      </svg>
+    </div>
+    <div class="flex justify-center items-center">
+      <strong>Maximum Temperature:</strong> {{ weatherData.main?.temp_max }}
+      <svg
+        class="h-5 w-5 text-white-500"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        stroke-width="2"
+        stroke="currentColor"
+        fill="none"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path stroke="none" d="M0 0h24v24H0z" />
+        <circle cx="6" cy="8" r="2" />
+        <path d="M20 9a3 3 0 0 0 -3 -3h-1a3 3 0 0 0 -3 3v6a3 3 0 0 0 3 3h1a3 3 0 0 0 3 -3" />
+      </svg>
+    </div>
+    <div class="flex justify-center items-center">
+      <strong>Feels like:</strong> {{ weatherData.main?.feels_like }}
+      <svg
+        class="h-5 w-5 text-white-500"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        stroke-width="2"
+        stroke="currentColor"
+        fill="none"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path stroke="none" d="M0 0h24v24H0z" />
+        <circle cx="6" cy="8" r="2" />
+        <path d="M20 9a3 3 0 0 0 -3 -3h-1a3 3 0 0 0 -3 3v6a3 3 0 0 0 3 3h1a3 3 0 0 0 3 -3" />
+      </svg>
+    </div>
+    <div class="flex justify-center items-center">
+      <strong>Humidity:</strong> {{ weatherData.main?.humidity }} g/kg
+    </div>
+    <div class="flex justify-center items-center">
+      <strong>Pressure:</strong> {{ weatherData.main?.pressure }} hPa
+    </div>
+    <div class="flex justify-center items-center">
+      <strong>Sea level:</strong> {{ weatherData.main?.sea_level }} m
+    </div>
+    <div class="flex justify-center items-center">
+      <strong>Ground level:</strong> {{ weatherData.main?.grnd_level }} m
+    </div>
   </div>
 </template>
