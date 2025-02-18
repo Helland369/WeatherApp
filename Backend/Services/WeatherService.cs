@@ -1,7 +1,6 @@
 using System.Text.Json;
 using Backend.Data;
 using Backend.Models;
-using DotNetEnv;
 using IPinfo;
 using IPinfo.Models;
 
@@ -18,7 +17,6 @@ public class WeatherServices
     {
         _httpClient = httpClient ?? throw new ArgumentNullException(nameof(HttpClient));
         _context = context ?? throw new ArgumentNullException(nameof(context));
-        //Env.Load();
     }
 
     private async Task GetLocationData()
