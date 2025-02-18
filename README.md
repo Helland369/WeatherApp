@@ -2,7 +2,7 @@
 
 ## Table of Contents
 
-- [About](About)
+- [About](#About)
 - [Images](#Images)
 - [Backend](https://github.com/Helland369/WeatherApp/blob/main/Backend/README.md)
 - [Frontend](https://github.com/Helland369/WeatherApp/blob/main/Frontend/README.md)
@@ -25,9 +25,9 @@ Read more about the Frontend [here](https://github.com/Helland369/WeatherApp/blo
 # Images
 ## Image of geting live weather info
 
-![Alt text(https://github.com/Helland369/WeatherApp/blob/main/img/2025-02-18_10-17.png)]
+![Live weather](https://github.com/Helland369/WeatherApp/blob/main/img/2025-02-18_10-17.png)
 
 
 ## Image of reading weather from the database
 
-![Alt text(https://github.com/Helland369/WeatherApp/blob/main/img/2025-02-18_10-17_1.png)]
+![Database weather](https://github.com/Helland369/WeatherApp/blob/main/img/2025-02-18_10-17_1.png)
