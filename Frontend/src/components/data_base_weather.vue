@@ -31,7 +31,7 @@ export default {
           <th
             v-for="(value, key) in weatherData[0]"
             :key="key"
-            class="border border-gray-300 bg-gray-900 text-left p-2"
+            class="border border-gray-300 bg-white-900 text-left p-2"
           >
             {{ key }}
           </th>
