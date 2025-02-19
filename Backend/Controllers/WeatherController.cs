@@ -50,4 +50,22 @@ public class WeatherController : ControllerBase
             return StatusCode(500, $"Error while fetching weather data: {ex.Message}");
         }
     }
+
+    [HttpGet("search")]
+    public async Task<IActionResult> GetWeatherByCity(string city)
+    {
+        if (string.IsNullOrEmpty(city))
+            return BadRequest("City name is required!");
+
+        try
+        {
+            var weatherData = await _weatherServices.GetWeatherDataByCityAsync(city);
+            return Ok(weatherData);
+        }
+        catch (Exception ex)
+        {
+			return StatusCode(500, $"Error fetching weather data: {ex.Message}");
+        }
+
+    }
 }

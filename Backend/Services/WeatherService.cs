@@ -89,4 +89,44 @@ public class WeatherServices
             throw new Exception($"Error while fetching weather data: {ex}");
         }
     }
+
+    public async Task<string> GetWeatherDataByCityAsync(string city)
+    {
+        if (string.IsNullOrEmpty(city))
+            throw new ArgumentException("City name is required!");
+
+        try
+        {
+            string weatherApiUrl = $"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={Environment.GetEnvironmentVariable("WEATHERKEY")}&units=metric";
+            var response = await _httpClient.GetAsync(weatherApiUrl);
+            response.EnsureSuccessStatusCode();
+
+            var json = await response.Content.ReadAsStringAsync();
+            var weatherResponse = JsonDocument.Parse(json);
+
+            var weatherData = new WeatherData
+            {
+                name = weatherResponse.RootElement.GetProperty("name").GetString() ?? "unknown",
+                temp = weatherResponse.RootElement.GetProperty("main").GetProperty("temp").GetDecimal(),
+                max_temp = weatherResponse.RootElement.GetProperty("main").GetProperty("temp_max").GetDecimal(),
+                min_temp = weatherResponse.RootElement.GetProperty("main").GetProperty("temp_min").GetDecimal(),
+                feels_like = weatherResponse.RootElement.GetProperty("main").GetProperty("feels_like").GetDecimal(),
+                pressure = weatherResponse.RootElement.GetProperty("main").GetProperty("pressure").GetInt32(),
+                latitude = _lat,
+                longitude = _lon,
+                humidity = weatherResponse.RootElement.GetProperty("main").GetProperty("humidity").GetInt32(),
+                sea_level = weatherResponse.RootElement.GetProperty("main").TryGetProperty("sea_level", out var sea) ? (int)sea.GetDecimal() : 0,
+                grnd_level = weatherResponse.RootElement.GetProperty("main").TryGetProperty("grnd_level", out var grnd) ? (int)grnd.GetDecimal() : 0
+            };
+
+            _context.WeatherData.Add(weatherData);
+            await _context.SaveChangesAsync();
+
+            return await response.Content.ReadAsStringAsync();
+        }
+        catch (Exception ex)
+        {
+            throw new Exception($"Error while fetching weather data for city {city}: {ex}");
+        }
+    }
 }
