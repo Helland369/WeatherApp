@@ -64,8 +64,22 @@ public class WeatherController : ControllerBase
         }
         catch (Exception ex)
         {
-			return StatusCode(500, $"Error fetching weather data: {ex.Message}");
+            return StatusCode(500, $"Error fetching weather data: {ex.Message}");
         }
 
+    }
+
+    [HttpGet("map")]
+    public async Task<IActionResult> GetWeatherByCordinates(double lon, double lat)
+    {
+        try
+        {
+            var weatherData = await _weatherServices.GetWeatherDataByCordinatesAsync(lon, lat);
+            return Ok(weatherData);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Error while fetching weather data: {ex}");
+        }
     }
 }
