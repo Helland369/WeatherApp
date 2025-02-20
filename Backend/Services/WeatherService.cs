@@ -129,4 +129,20 @@ public class WeatherServices
             throw new Exception($"Error while fetching weather data for city {city}: {ex}");
         }
     }
+
+    public async Task<string> GetWeatherDataByCordinatesAsync(double lon, double lat)
+    {
+        try
+        {
+            string weatherApiUrl = $"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={Environment.GetEnvironmentVariable("WEATHERKEY")}&units=metric";
+            var response = await _httpClient.GetAsync(weatherApiUrl);
+            response.EnsureSuccessStatusCode();
+
+            return await response.Content.ReadAsStringAsync();
+        }
+        catch (Exception ex)
+        {
+            throw new Exception($"Error while fetching weather data: {ex}");
+        }
+    }
 }

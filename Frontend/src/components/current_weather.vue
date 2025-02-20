@@ -117,7 +117,7 @@ export default {
       </svg>
     </div>
     <div class="flex justify-center items-center">
-      <strong>Humidity:</strong> {{ weatherData.main?.humidity }} g/kg
+      <strong>Humidity:</strong> {{ weatherData.main?.humidity }} %
     </div>
     <div class="flex justify-center items-center">
       <strong>Pressure:</strong> {{ weatherData.main?.pressure }} hPa
