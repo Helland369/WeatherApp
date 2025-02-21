@@ -1,5 +1,4 @@
 <script>
-import weatherMap from '@/components/weather_map.vue'
 import axios from 'axios'
 
 export default {
@@ -130,6 +129,4 @@ export default {
       <strong>Ground level:</strong> {{ weatherData.main?.grnd_level }} m
     </div>
   </div>
-
-  <weatherMap />
 </template>
