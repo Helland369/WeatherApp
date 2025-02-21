@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import homeView from '@/views/home_view.vue'
 import data_base_view from '@/views/data_base_view.vue'
 import search_weather from '@/views/search_weather.vue'
+import weather_map from '@/views/weather_map.vue'
 //import { defaults } from 'autoprefixer'
 
 const router = createRouter({
@@ -21,6 +22,11 @@ const router = createRouter({
       path: '/weather/:city',
       name: 'search',
       component: search_weather,
+    },
+    {
+      path: '/weather/map',
+      name: 'map',
+      component: weather_map,
     },
   ],
 })

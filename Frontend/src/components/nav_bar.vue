@@ -19,6 +19,7 @@ const searchCity = () => {
     <RouterLink class="text-lg font-medium hover:underline" to="/data_base"
       >Weather data base</RouterLink
     >
+    <RouterLink class="text-lg font-medium hover:underline" to="/weather/map">Map</RouterLink>
     <form class="relative ml-auto" @submit.prevent="searchCity">
       <input v-model="city" type="search" placeholder="City" />
       <button type="submit">Search</button>
