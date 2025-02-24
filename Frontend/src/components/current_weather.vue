@@ -1,27 +1,21 @@
-<script>
+<script setup>
+import weather_map from './weather_map.vue'
+import { ref, onMounted } from 'vue'
 import axios from 'axios'
 
-export default {
-  data() {
-    return {
-      weatherData: null,
-    }
-  },
-  methods: {
-    async fetchApi() {
-      try {
-        const response = await axios.get('http://localhost:5285/api/weather/live')
-        console.log('Response data', response.data)
-        this.weatherData = response.data
-      } catch (err) {
-        console.log('Failed to fetch data', err)
-      }
-    },
-  },
-  mounted() {
-    this.fetchApi()
-  },
+const weatherData = ref(null)
+
+const fetchApi = async () => {
+  try {
+    const response = await axios.get('http://localhost:5285/api/weather/live')
+    console.log('Response data', response.data)
+    weatherData.value = response.data
+  } catch (err) {
+    console.log('Failed to fetch data', err)
+  }
 }
+
+onMounted(fetchApi)
 </script>
 
 <template>
@@ -45,76 +39,16 @@ export default {
       </svg>
     </div>
     <div class="flex justify-center items-center">
-      <strong>Temperature:</strong> {{ weatherData.main?.temp }}
-      <svg
-        class="h-5 w-5 text-white-500"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        stroke-width="2"
-        stroke="currentColor"
-        fill="none"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      >
-        <path stroke="none" d="M0 0h24v24H0z" />
-        <circle cx="6" cy="8" r="2" />
-        <path d="M20 9a3 3 0 0 0 -3 -3h-1a3 3 0 0 0 -3 3v6a3 3 0 0 0 3 3h1a3 3 0 0 0 3 -3" />
-      </svg>
+      <strong>Temperature:</strong> {{ weatherData.main?.temp }} °C
     </div>
     <div class="flex justify-center items-center">
-      <strong>Minimum Temperature:</strong> {{ weatherData.main?.temp_min }}
-      <svg
-        class="h-5 w-5 text-white-500"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        stroke-width="2"
-        stroke="currentColor"
-        fill="none"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      >
-        <path stroke="none" d="M0 0h24v24H0z" />
-        <circle cx="6" cy="8" r="2" />
-        <path d="M20 9a3 3 0 0 0 -3 -3h-1a3 3 0 0 0 -3 3v6a3 3 0 0 0 3 3h1a3 3 0 0 0 3 -3" />
-      </svg>
+      <strong>Minimum Temperature:</strong> {{ weatherData.main?.temp_min }} °C
     </div>
     <div class="flex justify-center items-center">
-      <strong>Maximum Temperature:</strong> {{ weatherData.main?.temp_max }}
-      <svg
-        class="h-5 w-5 text-white-500"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        stroke-width="2"
-        stroke="currentColor"
-        fill="none"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      >
-        <path stroke="none" d="M0 0h24v24H0z" />
-        <circle cx="6" cy="8" r="2" />
-        <path d="M20 9a3 3 0 0 0 -3 -3h-1a3 3 0 0 0 -3 3v6a3 3 0 0 0 3 3h1a3 3 0 0 0 3 -3" />
-      </svg>
+      <strong>Maximum Temperature:</strong> {{ weatherData.main?.temp_max }} °C
     </div>
     <div class="flex justify-center items-center">
-      <strong>Feels like:</strong> {{ weatherData.main?.feels_like }}
-      <svg
-        class="h-5 w-5 text-white-500"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        stroke-width="2"
-        stroke="currentColor"
-        fill="none"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      >
-        <path stroke="none" d="M0 0h24v24H0z" />
-        <circle cx="6" cy="8" r="2" />
-        <path d="M20 9a3 3 0 0 0 -3 -3h-1a3 3 0 0 0 -3 3v6a3 3 0 0 0 3 3h1a3 3 0 0 0 3 -3" />
-      </svg>
+      <strong>Feels like:</strong> {{ weatherData.main?.feels_like }} °C
     </div>
     <div class="flex justify-center items-center">
       <strong>Humidity:</strong> {{ weatherData.main?.humidity }} %
@@ -129,4 +63,6 @@ export default {
       <strong>Ground level:</strong> {{ weatherData.main?.grnd_level }} m
     </div>
   </div>
+
+  <weather_map />
 </template>
