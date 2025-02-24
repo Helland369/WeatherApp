@@ -29,24 +29,26 @@ const onMapClick = async (event) => {
 </script>
 
 <template>
-  <GoogleMap
-    api-key="//APIKEY"
-    mapId="WEATHER_MAP"
-    style="width: 100%; height: 500px"
-    :center="center"
-    :zoom="6"
-    @click="onMapClick"
-  >
-    <Marker v-if="marker" :options="{ position: marker }" />
-    <!-- <Marker :options="{ position: center }" /> -->
-  </GoogleMap>
+  <div class="flex flex-col justify-center items-center space-y-4 pt-50">
+    <GoogleMap
+      api-key="//APIKEY"
+      mapId="WEATHER_MAP"
+      style="width: 50%; height: 500px"
+      :center="center"
+      :zoom="6"
+      @click="onMapClick"
+    >
+      <Marker v-if="marker" :options="{ position: marker }" />
+      <!-- <Marker :options="{ position: center }" /> -->
+    </GoogleMap>
 
-  <div v-if="weather">
-    <h2>Weather at ({{ weather.coord.lat }}, {{ weather.coord.lon }})</h2>
-    <h2>Place: {{ weather.name }}</h2>
-    <p>Temperature: {{ weather.main.temp }}°C</p>
-    <p>Feels Like: {{ weather.main.feels_like }}°C</p>
-    <p>Humidity: {{ weather.main.humidity }}%</p>
-    <p>Pressure: {{ weather.main.pressure }} hPa</p>
+    <div v-if="weather">
+      <h2>Weather at ({{ weather.coord.lat }}, {{ weather.coord.lon }})</h2>
+      <h2>Place: {{ weather.name }}</h2>
+      <p>Temperature: {{ weather.main.temp }}°C</p>
+      <p>Feels Like: {{ weather.main.feels_like }}°C</p>
+      <p>Humidity: {{ weather.main.humidity }}%</p>
+      <p>Pressure: {{ weather.main.pressure }} hPa</p>
+    </div>
   </div>
 </template>
